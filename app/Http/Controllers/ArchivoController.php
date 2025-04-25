@@ -32,12 +32,11 @@ class ArchivoController extends Controller
 
     public function destroy(Archivo $archivo)
     {
-        $this->authorize('delete', $archivo); // Usa policy si es necesario
+        $this->authorize('delete', $archivo); // Llama a la policy
 
-        Storage::delete('public/' . $archivo->ruta);
+        \Storage::delete($archivo->ruta);
         $archivo->delete();
 
         return back()->with('success', 'Archivo eliminado.');
     }
-
 }

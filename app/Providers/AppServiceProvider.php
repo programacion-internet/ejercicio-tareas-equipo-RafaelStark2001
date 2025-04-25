@@ -9,7 +9,10 @@ use Illuminate\Support\Facades\Blade;
 use App\Models\Tarea;
 use App\Policies\TareaPolicy;
 use Illuminate\Support\Facades\Gate;
-//use Illuminate\Support\ServiceProvider;
+
+use App\Models\Archivo;
+use App\Policies\ArchivoPolicy;
+
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -28,5 +31,7 @@ class AppServiceProvider extends ServiceProvider
     {
         // Registrar la política para Tarea
         Gate::policy(Tarea::class, TareaPolicy::class);
+        Gate::policy(Archivo::class, ArchivoPolicy::class);
+
     }
 }

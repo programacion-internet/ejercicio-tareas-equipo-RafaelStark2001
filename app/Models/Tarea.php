@@ -27,6 +27,11 @@ class Tarea extends Model
      * @return void
      */
 
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
     public function owner()
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
