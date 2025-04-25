@@ -26,13 +26,27 @@ class Tarea extends Model
      *
      * @return void
      */
+
     public function owner()
     {
-        return $this->belongsTo(User::class, 'user_id', 'id', 'users');
+        return $this->belongsTo(User::class, 'user_id', 'id');
     }
+
 
     public function users()
     {
         return $this->belongsToMany(User::class, 'tarea_user', 'tarea_id', 'user_id');
     }
+
+    //Nuevo
+    public function invitados()
+    {
+        return $this->belongsToMany(User::class, 'invitaciones', 'tarea_id', 'user_id');
+    }
+
+    public function archivos()
+    {
+        return $this->hasMany(Archivo::class);
+    }
+
 }
