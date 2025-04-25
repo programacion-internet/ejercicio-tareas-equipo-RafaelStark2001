@@ -9,6 +9,7 @@ use App\Http\Requests\UpdateTareaRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
+use App\Notifications\InvitacionTarea;
 
 use App\Http\Controllers\Controller;
 
@@ -33,9 +34,6 @@ class TareaController extends Controller
         $tareasPropias = $user->tareas()->get();
 
         // Tareas donde está invitado
-
-        //$tareasInvitado = $user->tareasInvitado()->get();
-        //$tareasInvitado = $user->tareasInvitado()->with('usuario')->get();
         $tareasInvitado = $user->tareasInvitado()->with('invitados')->get();
 
 
@@ -144,9 +142,12 @@ class TareaController extends Controller
 
         $tarea->invitados()->attach($request->user_id);
 
-        // Notificación (si se desea agregar más adelante)
+        // Obtener el usuario y enviar notificación
+        $usuarioInvitado = User::find($request->user_id);
+        $usuarioInvitado->notify(new InvitacionTarea($tarea));
 
         return back()->with('success', 'Usuario invitado correctamente.');
     }
+
 
 }
