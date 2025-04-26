@@ -2,14 +2,21 @@
 
 namespace App\Policies;
 
+//namespace Database\Factories;
+
 use App\Models\Tarea;
 use App\Models\User;
 use Illuminate\Auth\Access\Response;
+
+use Illuminate\Database\Eloquent\Factories\Factory;
 
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class TareaPolicy
 {
+
+    protected $model = Tarea::class;
+
     /**
      * Determine whether the user can view any models.
      */
