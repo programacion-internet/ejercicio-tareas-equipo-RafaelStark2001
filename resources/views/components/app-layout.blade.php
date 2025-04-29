@@ -8,17 +8,21 @@
 </head>
 <body class="bg-gray-100 text-gray-800 min-h-screen flex flex-col">
 
-    <!-- Header -->
     <header class="bg-white shadow p-4">
         <div class="max-w-7xl mx-auto flex justify-between items-center">
             <h1 class="text-2xl font-bold">Tarea Equipo</h1>
-            @auth
-                <span>Hola, {{ Auth::user()->name }}</span>
-            @endauth
+            <div class="flex items-center">
+                @auth
+                    <span class="mr-4">Hola, {{ Auth::user()->name }}</span>
+                    <form method="POST" action="{{ route('logout') }}">
+                        @csrf
+                        <button type="submit" class="bg-red-500 text-white px-3 py-2 rounded text-sm hover:bg-red-600">Cerrar sesión</button>
+                    </form>
+                @endauth
+            </div>
         </div>
     </header>
 
-    <!-- Aquí se mostrará el contenido de la página -->
     <main class="flex-1">
         {{ $slot }}
     </main>

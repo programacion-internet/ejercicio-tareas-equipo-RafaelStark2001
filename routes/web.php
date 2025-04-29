@@ -9,8 +9,12 @@ use App\Http\Controllers\TareaController;
 use App\Http\Controllers\ArchivoController;
 
 Route::get('/', function () {
-    return view('welcome');
-})->name('home');
+    return view('landing');
+});
+
+//Route::get('/', function () {
+//    return view('welcome');
+//})->name('home');
 
 Route::view('dashboard', 'dashboard')
     ->middleware(['auth', 'verified'])

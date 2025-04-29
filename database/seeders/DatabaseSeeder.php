@@ -15,32 +15,12 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
 
-        // Usuario 1: Rafael Castillo
-        User::firstOrCreate(
-            ['email' => 'rafaelcastillostark2001@gmail.com'],
-            [
-                'name' => 'Rafael Castillo',
-                'email_verified_at' => now(),
-                'password' => Hash::make('Rafaelcastillo01#'),
-            ]
-        );
+        User::factory(10)->create();
 
-        // Usuario 2: Paloma Beltran
-        User::firstOrCreate(
-            ['email' => 'palomabeltran@gmail.com'],
-            [
-                'name' => 'Paloma Beltran',
-                'email_verified_at' => now(),
-                'password' => Hash::make('Paloma1234#'),
-            ]
-        );
-
-        // User::factory(10)->create();
-
-        //User::factory()->create([
-        //    'name' => 'Test User',
-        //    'email' => 'test@example.com',
-        //]);
+        User::factory()->create([
+            'name' => 'Test User',
+            'email' => 'test@example.com',
+        ]);
 
         // Ejecutar el TareaSeeder
         $this->call([
