@@ -26,24 +26,23 @@ class Login extends Component
     /**
      * Handle an incoming authentication request.
      */
-    public function login(): void
+    public function login()
     {
         $this->validate();
 
-        $this->ensureIsNotRateLimited();
-
         if (! Auth::attempt(['email' => $this->email, 'password' => $this->password], $this->remember)) {
-            RateLimiter::hit($this->throttleKey());
-
             throw ValidationException::withMessages([
-                'email' => __('auth.failed'),
+                'email' => trans('auth.failed'),
             ]);
         }
 
-        RateLimiter::clear($this->throttleKey());
-        Session::regenerate();
+        session()->regenerate();
 
-        $this->redirectIntended(default: route('dashboard', absolute: false), navigate: true);
+        logger('Redirección desde Login.php');
+        logger(url()->previous());
+        logger(session()->get('url.intended'));
+
+        $this->redirect(route('tareas.index'));
     }
 
     /**

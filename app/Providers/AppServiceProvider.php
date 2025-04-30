@@ -4,6 +4,16 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 
+use Illuminate\Support\Facades\Blade;
+
+use App\Models\Tarea;
+use App\Policies\TareaPolicy;
+use Illuminate\Support\Facades\Gate;
+
+use App\Models\Archivo;
+use App\Policies\ArchivoPolicy;
+
+
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -19,6 +29,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        // Registrar la política para Tarea
+        Gate::policy(Tarea::class, TareaPolicy::class);
+        Gate::policy(Archivo::class, ArchivoPolicy::class);
+
     }
 }

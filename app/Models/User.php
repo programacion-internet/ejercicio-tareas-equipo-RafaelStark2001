@@ -8,6 +8,8 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Str;
 
+use Illuminate\Database\Eloquent\Model;
+
 class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
@@ -73,8 +75,17 @@ class User extends Authenticatable
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
+
+    // Nuevo
     public function tareas()
     {
-        return $this->belongsToMany(Tarea::class);
+        return $this->hasMany(Tarea::class, 'user_id', 'id');
     }
+
+    public function tareasInvitado()
+    {
+        return $this->belongsToMany(Tarea::class, 'invitaciones', 'user_id', 'tarea_id');
+                    //->withPivot('invitado_por_id');
+    }
+
 }
