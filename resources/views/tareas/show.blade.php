@@ -41,7 +41,6 @@
             </form>
         @endif
 
-
         {{-- Lista de archivos --}}
         <h3 class="text-xl font-semibold mb-2">Archivos</h3>
         <div class="overflow-x-auto">
@@ -79,13 +78,13 @@
                             <td class="px-4 py-3 text-center align-middle">
                                 <div class="flex items-center justify-center gap-3">
                                     <a href="{{ asset('storage/' . $archivo->ruta) }}" target="_blank" class="text-blue-600 hover:underline text-sm">Ver</a>
-                                    @if(Auth::id() === $tarea->user_id)
+                                    @can('delete', $archivo)
                                         <form action="{{ route('archivos.destroy', $archivo) }}" method="POST" onsubmit="return confirm('¿Eliminar archivo?')">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="text-red-600 hover:underline text-sm">Eliminar</button>
                                         </form>
-                                    @endif
+                                    @endcan
                                 </div>
                             </td>
                         </tr>
@@ -95,7 +94,6 @@
         </div>
 
         <a href="{{ route('tareas.index') }}" class="mt-4 inline-block bg-blue-500 text-white px-4 py-2 rounded">Volver</a>
-
     </div>
 
     {{-- Íconos Heroicons --}}
@@ -111,4 +109,3 @@
         </symbol>
     </svg>
 </x-app-layout>
-

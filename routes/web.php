@@ -7,6 +7,9 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\TareaController;
 use App\Http\Controllers\ArchivoController;
+use App\Livewire\Auth\Login;
+use App\Livewire\Auth\Register;
+
 
 Route::get('/', function () {
     return view('landing');
@@ -34,6 +37,9 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('tareas', TareaController::class);
     Route::post('/tareas/{tarea}/invitar', [TareaController::class, 'invitar'])->name('tareas.invitar');
 });
+
+Route::get('/login', Login::class)->name('login');
+Route::get('/register', Register::class)->name('register');
 
 Route::post('/archivos', [ArchivoController::class, 'store'])->name('archivos.store');
 Route::delete('/archivos/{archivo}', [ArchivoController::class, 'destroy'])->name('archivos.destroy');

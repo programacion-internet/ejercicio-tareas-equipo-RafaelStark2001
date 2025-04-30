@@ -6,8 +6,13 @@ use App\Models\Archivo;
 use App\Models\User;
 use Illuminate\Auth\Access\Response;
 
+use Illuminate\Auth\Access\HandlesAuthorization;
+
 class ArchivoPolicy
 {
+
+    use HandlesAuthorization;
+
     /**
      * Determine whether the user can view any models.
      */
@@ -43,10 +48,18 @@ class ArchivoPolicy
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(User $user, Archivo $archivo): bool
+    //public function delete(User $user, Archivo $archivo): bool
+    //{
+    //    return $archivo->tarea && $archivo->tarea->user_id === $user->id;
+    //}
+
+    public function delete(User $user, Archivo $archivo)
     {
-        return $archivo->tarea && $archivo->tarea->user_id === $user->id;
+        $tarea = $archivo->tarea;
+
+        return $user->id === $tarea->user_id || $tarea->invitados->contains($user);
     }
+
 
     /**
      * Determine whether the user can restore the model.
